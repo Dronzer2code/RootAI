@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root AI: Nurturing Growth, Harvesting Success</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global Reset for Consistent Box Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CSS Variables */
+        :root {
+            --primary-green: #4caf50;
+            --dark-green: #2e7d32;
+            --primary-yellow: #8bc34a;
+            --dark-yellow: #689f38;
+            --white: #fafafa;
+            --pure-white: #ffffff;
+            --text-color: #1a2c34;
+            --heading-color: #1a2c34;
+            --light-gray: #e8f5e9;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --glass-blur: blur(12px);
+            --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.06); opacity: 0.94; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.7); }
+            100% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-100%); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 18px;
+            transition: all 0.4s ease;
+        }
+
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 14px 48px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--white);
+            box-shadow: 0 3px 12px var(--shadow-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+            border-radius: 18px;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-green);
+            animation: pulse 4s infinite ease-in-out;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.4s ease, transform 0.4s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-yellow);
+            transform: translateY(-4px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--primary-yellow);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.4s ease;
+        }
+
+        .mobile-menu-btn.active::before {
+            content: '\f00d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('assets/hero.jpg') no-repeat center center/cover;
+            text-align: center;
+            padding: 100px 24px;
+            border-radius: 20px;
+            margin: 24px 0;
+            animation: fadeIn 0.9s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            color: var(--heading-color);
+            margin-bottom: 24px;
+            font-weight: 700;
+            animation: slideInLeft 0.7s ease-out;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 18px);
+            color: var(--text-color);
+            margin-bottom: 32px;
+            max-width: 740px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            background: var(--primary-green);
+            color: var(--pure-white);
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            box-shadow: var(--glass-shadow);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(76, 175, 80, 0.5);
+            animation: glow 1.8s infinite;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            color: var(--primary-yellow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            border-color: var(--primary-green);
+            color: var(--pure-white);
+            box-shadow: 0 12px 24px rgba(76, 175, 80, 0.5);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 72px 0;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--light-gray);
+        }
+
+        h2 {
+            font-size: clamp(26px, 5vw, 30px);
+            color: var(--heading-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            position: relative;
+            animation: slideInLeft 0.7s ease-out;
+        }
+
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-green);
+            position: absolute;
+            left: 50%;
+            bottom: -14px;
+            transform: translateX(-50%);
+            border-radius: 4px;
+        }
+
+        .section-intro {
+            max-width: 740px;
+            margin: 0 auto 40px auto;
+            font-size: 16px;
+            text-align: center;
+            color: #5f6f81;
+            line-height: 1.6;
+        }
+
+        /* Solutions Section */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            justify-items: center;
+            padding: 0 16px;
+        }
+
+        .solution-card {
+            padding: 28px;
+            border-radius: 18px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: fadeIn 0.7s ease-out;
+            max-width: 340px;
+            width: 100%;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 28px var(--shadow-color);
+        }
+
+        .solution-card i {
+            font-size: 2.6em;
+            color: var(--primary-green);
+            margin-bottom: 18px;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5em;
+            color: var(--heading-color);
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .solution-card p {
+            font-size: 1em;
+            color: #5f6f81;
+            margin-bottom: 18px;
+        }
+
+        .solution-card ul {
+            list-style: none;
+            text-align: left;
+            margin-top: 14px;
+        }
+
+        .solution-card ul li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            font-size: 0.95em;
+            color: var(--text-color);
+        }
+
+        .solution-card ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-yellow);
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        /* How It Works */
+        .how-it-works-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 40px;
+            padding: 0 16px;
+        }
+
+        .step-item {
+            flex: 0 1 240px;
+            text-align: center;
+            padding: 24px;
+            position: relative;
+            border-radius: 18px;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .step-icon {
+            font-size: 2.6em;
+            color: var(--primary-green);
+            margin-bottom: 18px;
+        }
+
+        .step-item h3 {
+            font-size: 1.4em;
+            color: var(--heading-color);
+            margin-bottom: 12px;
+        }
+
+        .step-item p {
+            font-size: 0.95em;
+            color: #5f6f81;
+        }
+
+        .step-item::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-yellow);
+            font-size: 1.8em;
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: -1;
+        }
+
+        .step-item:last-child::after {
+            content: none;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            justify-items: center;
+            padding: 0 16px;
+        }
+
+        .benefit-item {
+            padding: 24px;
+            border-radius: 18px;
+            animation: fadeIn 0.7s ease-out;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .benefit-item i {
+            font-size: 2.2em;
+            color: var(--primary-green);
+            margin-bottom: 18px;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.4em;
+            color: var(--heading-color);
+            margin-bottom: 12px;
+        }
+
+        .benefit-item p {
+            font-size: 0.95em;
+            color: #5f6f81;
+        }
+
+        /* Testimonials */
+        .testimonials-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 28px;
+            padding: 16px;
+            justify-content: flex-start;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .testimonials-slider::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        .testimonial-card {
+            flex: 0 0 360px;
+            scroll-snap-align: start;
+            padding: 28px;
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-left: 6px solid var(--primary-green);
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .testimonial-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 18px;
+            border: 3px solid var(--primary-yellow);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 18px;
+            font-size: 1em;
+            color: #5f6f81;
+        }
+
+        .testimonial-card span {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 1.05em;
+        }
+
+        /* Plant a Tree Section */
+        .plant-tree-section {
+            background: linear-gradient(45deg, var(--primary-green), var(--dark-yellow));
+            color: var(--pure-white);
+            text-align: center;
+            padding: 72px 24px;
+            border-radius: 20px;
+            margin: 28px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plant-tree-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/leaf-pattern.png') repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .plant-tree-section h2 {
+            color: var(--pure-white);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plant-tree-section h2::after {
+            background-color: var(--pure-white);
+        }
+
+        .plant-tree-section p {
+            font-size: 16px;
+            margin-bottom: 28px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            color: var(--pure-white);
+        }
+
+        .upload-container {
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 24px;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .upload-container input[type="file"] {
+            padding: 12px;
+            background: var(--pure-white);
+            border-radius: 10px;
+            border: 2px solid var(--primary-yellow);
+            color: var(--text-color);
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .upload-container input[type="file"]:hover {
+            border-color: var(--dark-yellow);
+            box-shadow: 0 4px 12px rgba(139, 195, 74, 0.3);
+        }
+
+        .upload-container input[type="file"]::-webkit-file-upload-button {
+            background: var(--primary-green);
+            color: var(--pure-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .upload-container input[type="file"]::-webkit-file-upload-button:hover {
+            background: var(--dark-green);
+        }
+
+        .upload-container .btn {
+            background: var(--pure-white);
+            color: var(--primary-green);
+            padding: 12px 32px;
+            font-size: 15px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-container .btn:hover {
+            background: var(--dark-green);
+            color: var(--pure-white);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Popup Styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--pure-white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1002;
+            max-width: 420px;
+            width: 90%;
+            border: 2px solid var(--primary-green);
+        }
+
+        .popup.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .popup h3 {
+            color: var(--primary-green);
+            margin-bottom: 18px;
+            font-size: 1.5em;
+        }
+
+        .popup p {
+            color: var(--text-color);
+            margin-bottom: 24px;
+            font-size: 1em;
+        }
+
+        .popup .btn {
+            background: var(--primary-green);
+            color: var(--pure-white);
+            padding: 12px 28px;
+        }
+
+        .popup .btn:hover {
+            background: var(--dark-green);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+        }
+
+        .popup-overlay.active {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-yellow));
+            color: var(--pure-white);
+            text-align: center;
+            padding: 72px 24px;
+            border-radius: 20px;
+            margin: 28px 0;
+        }
+
+        .cta-section h2 {
+            color: var(--pure-white);
+            margin-bottom: 24px;
+        }
+
+        .cta-section h2::after {
+            background-color: var(--pure-white);
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            margin-bottom: 28px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--pure-white);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn {
+            background: var(--pure-white);
+            color: var(--primary-green);
+        }
+
+        .cta-buttons .btn:hover {
+            background: var(--dark-green);
+            color: var(--pure-white);
+        }
+
+        .cta-buttons .btn-secondary {
+            border-color: var(--primary-yellow);
+            color: var(--primary-yellow);
+        }
+
+        .cta-buttons .btn-secondary:hover {
+            background: var(--primary-green);
+            border-color: var(--primary-green);
+            color: var(--pure-white);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #1a2c34, #0f1c1f);
+            color: var(--pure-white);
+            padding: 48px 0;
+            font-size: 1em;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 18px;
+            color: var(--primary-green);
+        }
+
+        .footer-column p, .footer-column a, .footer-column li {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .social-links {
+            margin-top: 18px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            color: var(--pure-white);
+            font-size: 1.6em;
+            transition: color 0.4s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-yellow));
+            color: var(--pure-white);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            transition: all 0.4s ease;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 10px 24px rgba(76, 175, 80, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                padding: 80px 24px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .solutions-grid, .benefits-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+            }
+
+            .how-it-works-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+
+            .step-item {
+                flex: 0 1 90%;
+                border-bottom: 2px dashed var(--primary-green);
+                padding-bottom: 28px;
+                margin-bottom: 28px;
+            }
+
+            .step-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .step-item::after {
+                content: '\f078';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                top: auto;
+                bottom: -18px;
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+            }
+
+            .step-item:last-child::after {
+                content: none;
+            }
+
+            .testimonials-slider {
+                gap: 20px;
+                padding: 12px;
+            }
+
+            .testimonial-card {
+                flex: 0 0 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px;
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 12px;
+                gap: 16px;
+                background: var(--white);
+                padding: 24px 0;
+                border-radius: 14px;
+                box-shadow: 0 4px 12px var(--shadow-color);
+                animation: slideDown 0.4s ease-out;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero {
+                padding: 48px 20px;
+                margin: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .btn, .btn-secondary {
+                padding: 12px 24px;
+                font-size: 15px;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            .cta-section, .plant-tree-section {
+                padding: 48px 20px;
+                margin: 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .solutions-grid, .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 12px;
+            }
+
+            .solution-card, .benefit-item {
+                max-width: 100%;
+            }
+
+            .testimonial-card {
+                flex: 0 0 90%;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 24px;
+            }
+
+            .footer-column {
+                min-width: 100%;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .chat-button {
+                width: 52px;
+                height: 52px;
+                font-size: 1.6em;
+            }
+
+            .upload-container {
+                padding: 20px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .btn, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 14px;
+                max-width: 280px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .solution-card, .benefit-item, .step-item {
+                padding: 20px;
+            }
+
+            .testimonials-slider {
+                gap: 16px;
+                padding: 8px;
+            }
+
+            .testimonial-card {
+                flex: 0 0 95%;
+                padding: 16px;
+            }
+
+            .cta-section p, .plant-tree-section p {
+                font-size: 15px;
+            }
+
+            .footer-column p, .footer-column a, .footer-column li {
+                font-size: 14px;
+            }
+
+            .popup {
+                width: 95%;
+                padding: 24px;
+            }
+
+            .upload-container input[type="file"] {
+                font-size: 14px;
+                max-width: 100%;
+            }
+
+            .upload-container .btn {
+                padding: 10px 28px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="glass">
+                <div class="logo">Root AI</div>
+                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
+                <ul class="nav-links">
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#plant-tree">Plant a Tree</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero glass">
+            <div class="container">
+                <h1>Transforming Indian Agriculture with Smart AI Solutions</h1>
+                <p>Empowering our farmers with cutting-edge, data-driven insights for higher yields, reduced costs, and sustainable prosperity.</p>
+                <div class="hero-buttons">
+                    <a href="http://127.0.0.1:5000" class="btn">Request a Free Demo</a>
+                    <a href="#contact" class="btn btn-secondary">Speak to an Root Expert</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-agrimitra">
+            <div class="container">
+                <h2>Why Root AI for Bharat?</h2>
+                <p class="section-intro">Farming is the backbone of India, but our Annadatas face increasing pressures – unpredictable weather, soil health challenges, and rising input costs. Root AI is built specifically for the Indian farmer, understanding your unique needs and delivering intelligent solutions that work on the ground. We're here to help you cultivate a more profitable and sustainable future.</p>
+            </div>
+        </section>
+
+        <section id="solutions">
+            <div class="container">
+                <h2>Our Core Solutions for Your Farm</h2>
+                <div class="solutions-grid">
+                    <div class="solution-card glass">
+                        <i class="fa-solid fa-seedling"></i>
+                        <h3>Precision Crop Care</h3>
+                        <p>Optimize every aspect of your crop's growth cycle.</p>
+                        <ul>
+                            <li>Intelligent Disease & Pest Alerts</li>
+                            <li>Optimized Irrigation Scheduling</li>
+                            <li>Nutrient Deficiency Analysis</li>
+                            <li>Yield Prediction & Optimization</li>
+                        </ul>
+                    </div>
+                    <div class="solution-card glass">
+                        <i class="fa-solid fa-cow"></i>
+                        <h3>Livestock & Aquaculture Insights</h3>
+                        <p>Ensure the health and productivity of your animals and fish.</p>
+                        <ul>
+                            <li>Individual Animal Health Tracking</li>
+                            <li>Automated Feeding Recommendations</li>
+                            <li>Behavioral Anomaly Detection</li>
+                        </ul>
+                    </div>
+                    <div class="solution-card glass">
+                        <i class="fa-solid fa-robot"></i>
+                        <h3>Farm Automation & Data Integration</h3>
+                        <p>Streamline operations and integrate with modern farm tech.</p>
+                        <ul>
+                            <li>Drone & Sensor Integration</li>
+                            <li>Smart Equipment Compatibility</li>
+                            <li>Automated Environmental Control</li>
+                        </ul>
+                    </div>
+                    <div class="solution-card glass">
+                        <i class="fa-solid fa-leaf"></i>
+                        <h3>Sustainable & Resilient Farming</h3>
+                        <p>Farm responsibly and adapt to changing climate patterns.</p>
+                        <ul>
+                            <li>Reduced Water & Input Usage</li>
+                            <li>Climate Resilience Strategies</li>
+                            <li>Soil Health Improvement</li>
+                            <li>Minimized Environmental Impact</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container">
+                <h2>How Root AI Works for You</h2>
+                <p class="section-intro">Our simple four-step process helps you turn data into decisive action for a thriving farm.</p>
+                <div class="how-it-works-steps">
+                    <div class="step-item glass">
+                        <i class="fa-solid fa-satellite-dish step-icon"></i>
+                        <h3>1. Collect Data</h3>
+                        <p>We gather crucial information from your fields using satellites, drones, ground sensors, and your farm records.</p>
+                    </div>
+                    <div class="step-item glass">
+                        <i class="fa-solid fa-brain step-icon"></i>
+                        <h3>2. AI Analyzes</h3>
+                        <p>Our powerful AI algorithms, trained on Indian agricultural data, process and interpret this information.</p>
+                    </div>
+                    <div class="step-item glass">
+                        <i class="fa-solid fa-lightbulb step-icon"></i>
+                        <h3>3. Actionable Insights</h3>
+                        <p>You receive clear, easy-to-understand recommendations directly on your smartphone or computer dashboard.</p>
+                    </div>
+                    <div class="step-item glass">
+                        <i class="fa-solid fa-hand-holding-heart step-icon"></i>
+                        <h3>4. Farm Smarter</h3>
+                        <p>Implement these insights to make informed decisions, optimize resources, and boost your farm's profitability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits">
+            <div class="container">
+                <h2>Key Benefits for Indian Farmers</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h3>Higher Yields</h3>
+                        <p>Maximize your crop production and animal growth potential.</p>
+                    </div>
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        <h3>Reduced Costs</h3>
+                        <p>Save significantly on water, fertilizers, pesticides, and labor.</p>
+                    </div>
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-leaf"></i>
+                        <h3>Sustainable Farming</h3>
+                        <p>Farm more responsibly, protecting your land and the environment.</p>
+                    </div>
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <h3>Increased Efficiency</h3>
+                        <p>Save valuable time and effort by streamlining your farm operations.</p>
+                    </div>
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <h3>Greater Profits</h3>
+                        <p>Turn intelligent insights into tangible financial gains for your family.</p>
+                    </div>
+                    <div class="benefit-item glass">
+                        <i class="fa-solid fa-hands-helping"></i>
+                        <h3>Empowered Decisions</h3>
+                        <p>Make data-backed choices for a confident and successful farming future.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <h2>Our Annadatas Speak</h2>
+                <div class="testimonials-slider">
+                    <div class="testimonial-card glass">
+                        <img src="assets/farmer1.png" alt="Farmer Ramesh Kumar">
+                        <p>"Root AI has been a game-changer for my paddy fields. The irrigation recommendations alone have saved me so much water, and my yields have never been better!"</p>
+                        <span>- Ramesh Kumar, Farmer, Bihar</span>
+                    </div>
+                    <div class="testimonial-card glass">
+                        <img src="assets/farmer2.png" alt="Farmer Salman Khan">
+                        <p>"Identifying pest attacks early was always a challenge. With Root AI, I get alerts on my phone, and I can take action immediately. It's truly a 'mitra'!"</p>
+                        <span>- Salman Khan, Farmer, Maharashtra</span>
+                    </div>
+                    <div class="testimonial-card glass">
+                        <img src="assets/farmer3.png" alt="Gardener Rita Devi">
+                        <p>"The insights on soil health are invaluable. I now use fertilizers much more efficiently, and my crops are visibly healthier. Highly recommend Root AI!"</p>
+                        <span>- Rita Devi, Gardener, West Bengal</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plant-tree" class="plant-tree-section">
+            <div class="container">
+                <h2>Plant a Tree, Get 3 Months Free!</h2>
+                <p>Join our mission to make farming and our planet greener. Plant a tree, upload a photo of it, and enjoy 3 months of Root AI's premium subscription for free!</p>
+                <div class="upload-container glass">
+                    <input type="file" id="treePhoto" accept="image/*" aria-label="Upload tree photo">
+                    <button class="btn" onclick="handleUpload()">Upload Proof</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta-section">
+            <div class="container">
+                <h2>Get Started with Root AI Today!</h2>
+                <p>Ready to bring the power of AI to your farm? Let's cultivate a smarter, more prosperous future together.</p>
+                <div class="cta-buttons">
+                    <a href="http://127.0.0.1:5000" class="btn">Request a Free Demo</a>
+                    <a href="#contact" class="btn btn-secondary">Speak to an Root Expert</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Root AI</h3>
+                    <p>Nurturing growth, harvesting success. Empowering Indian farmers with intelligent AI solutions.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#solutions">Our Solutions</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#plant-tree">Plant a Tree</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Whitepapers</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fa-solid fa-phone"></i> +91 6291360749</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@Rootai.com</p>
+                    <p><i class="fa-solid fa-map-marker-alt"></i> Kolkata, West Bengal, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Root AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="popup" id="successPopup">
+        <h3>Congratulations!</h3>
+        <p>Your tree-planting proof has been uploaded successfully. Email us at <a href="mailto:info@Rootai.com">info@Rootai.com</a> to claim your free 3-month subscription!</p>
+        <button class="btn" onclick="closePopup()">Close</button>
+    </div>
+    <div class="popup-overlay" id="popupOverlay"></div>
+
+    <a href="http://127.0.0.1:5000" class="chat-button" aria-label="Start Chatting">
+        <i class="fa-solid fa-comment-dots"></i>
+    </a>
+
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navLinks.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
+        function handleUpload() {
+            const fileInput = document.getElementById('treePhoto');
+            if (fileInput.files.length > 0) {
+                const popup = document.getElementById('successPopup');
+                const overlay = document.getElementById('popupOverlay');
+                popup.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                alert('Please select an image to upload.');
+            }
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('successPopup');
+            const overlay = document.getElementById('popupOverlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+            document.getElementById('treePhoto').value = ''; // Reset file input
+        }
+    </script>
+</body>
+</html>
