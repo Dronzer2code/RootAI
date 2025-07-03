@@ -39,7 +39,7 @@ Start using AI to grow smarter!
 📌 Tech Stack (Landing Page)
 Frontend: Next.js + Tailwind CSS
 
-Hosting: Vercel
+Hosting: Vercel.
 
 Design Style: Minimalist, responsive, nature-inspired UI
 
