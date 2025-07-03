@@ -30,7 +30,7 @@ Track and visualize crop development and detect early warning signs of issues.
 🚀 Getting Started
 Visit the landing page : https://root-ai.vercel.app/
 
-Explore the features and workflow
+Explore the Excillent features and workflow
 
 Join the waitlist or early access (if available)
 
