@@ -172,17 +172,37 @@
             font-size: 28px;
             cursor: pointer;
             color: var(--text-color);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
         }
 
-        .mobile-menu-btn.active::before {
-            content: '\f00d';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .mobile-menu-btn .icon-open,
+        .mobile-menu-btn .icon-close {
+            position: absolute;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu-btn .icon-close {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        .mobile-menu-btn.active .icon-open {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-btn.active .icon-close {
+            opacity: 1;
+            transform: rotate(0);
         }
 
         .mobile-menu-btn:hover {
-            transform: rotate(90deg);
+            transform: scale(1.1);
         }
 
         /* Hero Section */
@@ -193,6 +213,23 @@
             border-radius: 20px;
             margin: 24px 0;
             animation: fadeIn 0.9s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rive-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
@@ -890,19 +927,21 @@
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 100%;
+                top: calc(100% + 12px);
                 left: 0;
                 right: 0;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 12px;
                 gap: 16px;
-                background: var(--white);
+                background: var(--glass-bg);
+                backdrop-filter: var(--glass-blur);
+                -webkit-backdrop-filter: var(--glass-blur);
                 padding: 24px 0;
                 border-radius: 14px;
                 box-shadow: 0 4px 12px var(--shadow-color);
                 animation: slideDown 0.4s ease-out;
                 z-index: 999;
+                border: 1px solid var(--glass-border);
             }
 
             .nav-links.active {
@@ -911,15 +950,11 @@
 
             .mobile-menu-btn {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
             }
 
             .hero {
                 padding: 48px 20px;
-                margin: 20px;
+                margin: 20px 0;
             }
 
             .hero h1 {
@@ -1066,7 +1101,10 @@
         <div class="container">
             <nav class="glass">
                 <div class="logo">Root AI</div>
-                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
+                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars icon-open"></i>
+                    <i class="fa-solid fa-times icon-close"></i>
+                </div>
                 <ul class="nav-links">
                     <li><a href="#solutions">Solutions</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
@@ -1081,6 +1119,9 @@
 
     <main>
         <section class="hero glass">
+            <div class="rive-container">
+                <canvas id="rive-canvas" style="width: 100%; height: 100%;"></canvas>
+            </div>
             <div class="container">
                 <h1>Transforming Indian Agriculture with Smart AI Solutions</h1>
                 <p>Empowering our farmers with cutting-edge, data-driven insights for higher yields, reduced costs, and sustainable prosperity.</p>
@@ -1319,6 +1360,7 @@
         <i class="fa-solid fa-comment-dots"></i>
     </a>
 
+    <script src="https://unpkg.com/@rive-app/canvas@2.7.3"></script>
     <script>
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -1365,6 +1407,21 @@
             overlay.classList.remove('active');
             document.getElementById('treePhoto').value = ''; // Reset file input
         }
+
+        // Rive Animation
+        const r = new rive.Rive({
+            src: 'https://public.rive.app/community/runtime-files/2164-4345-animated-plant.riv',
+            canvas: document.getElementById('rive-canvas'),
+            autoplay: true,
+            stateMachines: 'State Machine 1',
+            onLoad: () => {
+                r.resizeToFit(document.querySelector('.rive-container'));
+            },
+        });
+
+        window.addEventListener('resize', () => {
+            r.resizeToFit(document.querySelector('.rive-container'));
+        });
     </script>
 </body>
 </html>
