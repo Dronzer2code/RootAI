@@ -842,8 +842,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: linear-gradient(135deg, #4caf50 0%, #8bc34a 50%, #66bb6a 100%);
             display: flex;
             flex-direction: column;
@@ -853,6 +853,8 @@
             opacity: 1;
             visibility: visible;
             transition: opacity 4s ease-out, visibility 4s ease-out;
+            padding: 0;
+            margin: 0;
         }
 
         .loading-screen.fade-out {
@@ -1104,8 +1106,8 @@
             line-height: 1.1;
             letter-spacing: -2px;
             background: linear-gradient(135deg, var(--heading-color) 0%, var(--primary-green) 100%);
-            background-clip: text;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 50px;
         }
