@@ -84,6 +84,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes slideInMenu {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeInItem {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         /* Glassmorphism */
         .glass {
             background: var(--glass-bg);
@@ -132,11 +142,21 @@
             display: flex;
             gap: 24px;
             align-items: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
         .nav-links li {
             list-style: none;
+            position: relative;
+            animation: fadeInItem 0.5s ease-out forwards;
         }
+
+        .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+        .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+        .nav-links li:nth-child(6) { animation-delay: 0.6s; }
 
         .nav-links a {
             text-decoration: none;
@@ -145,11 +165,14 @@
             font-size: 16px;
             transition: color 0.4s ease, transform 0.4s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-links a:hover {
             color: var(--primary-yellow);
-            transform: translateY(-4px);
+            transform: scale(1.05);
         }
 
         .nav-links a::after {
@@ -167,57 +190,48 @@
             width: 100%;
         }
 
+        .nav-links a i {
+            font-size: 14px;
+            color: var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover i {
+            transform: translateX(4px);
+        }
+
         .mobile-menu-btn {
             display: none;
             font-size: 28px;
             cursor: pointer;
             color: var(--text-color);
             transition: transform 0.4s ease;
+            z-index: 1002;
+            position: relative;
         }
 
-        .mobile-menu-btn.active::before {
-            content: '\f00d';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .mobile-menu-btn i {
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        .mobile-menu-btn:hover {
+        .mobile-menu-btn.active i.fa-bars {
+            opacity: 0;
             transform: rotate(90deg);
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('assets/hero.jpg') no-repeat center center/cover;
-            text-align: center;
-            padding: 100px 24px;
-            border-radius: 20px;
-            margin: 24px 0;
-            animation: fadeIn 0.9s ease-out;
+        .mobile-menu-btn.active i.fa-times {
+            opacity: 1;
+            transform: rotate(0deg);
         }
 
-        .hero h1 {
-            font-size: clamp(28px, 6vw, 42px);
-            color: var(--heading-color);
-            margin-bottom: 24px;
-            font-weight: 700;
-            animation: slideInLeft 0.7s ease-out;
+        .mobile-menu-btn i.fa-times {
+            opacity: 0;
+            position: absolute;
+            transform: rotate(-90deg);
         }
 
-        .hero p {
-            font-size: clamp(16px, 2.5vw, 18px);
-            color: var(--text-color);
-            margin-bottom: 32px;
-            max-width: 740px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            align-items: center;
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
         }
 
         /* Button Styling */
@@ -459,12 +473,12 @@
             gap: 28px;
             padding: 16px;
             justify-content: flex-start;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         .testimonials-slider::-webkit-scrollbar {
-            display: none; /* Chrome, Safari */
+            display: none;
         }
 
         .testimonial-card {
@@ -1158,39 +1172,193 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-main {
-                padding: 60px 20px;
-                min-height: 70vh;
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 20px;
             }
-            
+
+            .how-it-works-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .step-item {
+                flex: 0 1 100%;
+                max-width: 450px;
+            }
+
+            .step-item::after {
+                content: '\f078'; /* down arrow */
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%) translateY(10px);
+            }
+
+            .step-item:last-child::after {
+                content: none;
+            }
+
+            .testimonials-slider {
+                justify-content: flex-start;
+            }
+
+            .testimonial-card {
+                flex: 0 0 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                line-height: 1.7;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            h2 {
+                font-size: clamp(24px, 6vw, 28px);
+                margin-bottom: 30px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 250px;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 20px;
+                transform: translateX(100%);
+                opacity: 0;
+                z-index: 1001;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+                opacity: 1;
+                animation: slideInMenu 0.5s ease-out;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                padding: 10px;
+                justify-content: flex-start;
+            }
+
+            .hero-main {
+                padding: 60px 16px;
+                min-height: 0;
+            }
+
             .hero-header {
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .hero-actions {
                 flex-direction: column;
-                gap: 16px;
+                gap: 20px;
             }
-            
+
             .btn-primary, .btn-secondary {
-                width: 250px;
+                width: 100%;
+                max-width: 300px;
                 justify-content: center;
+            }
+
+            .solutions-grid, .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .testimonial-card {
+                flex: 0 0 90%;
+                max-width: 340px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-main {
-                padding: 40px 15px;
+            section {
+                padding: 48px 0;
             }
-            
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .nav-links {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .hero-main {
+                padding: 48px 12px;
+            }
+
             .hero-content {
-                margin-bottom: 40px;
+                margin-bottom: 32px;
+            }
+
+            .hero-title {
+                font-size: clamp(40px, 10vw, 52px);
+                letter-spacing: -1px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+
+            .upload-container {
+                padding: 16px;
+            }
+
+            .upload-container .btn {
+                width: 100%;
+            }
+
+            .popup {
+                padding: 20px;
+            }
+
+            .chat-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6em;
+                bottom: 16px;
+                right: 16px;
             }
         }
-
-        /* Existing styles continue here */
     </style>
 </head>
 <body>
@@ -1207,7 +1375,7 @@
             <div class="seed"></div>
             <div class="seed"></div>
         </div>
-        
+
         <div class="tree-container">
             <div class="tree-leaves">
                 <div class="leaf-layer"></div>
@@ -1216,11 +1384,11 @@
             </div>
             <div class="tree-trunk"></div>
         </div>
-        
+
         <div class="growing-text">
             Growing your agricultural future<span class="loading-dots"></span>
         </div>
-        
+
         <div class="progress-bar">
             <div class="progress-fill"></div>
         </div>
@@ -1230,14 +1398,17 @@
         <div class="container">
             <nav class="glass">
                 <div class="logo">Root AI</div>
-                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
+                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-times"></i>
+                </div>
                 <ul class="nav-links">
-                    <li><a href="#solutions">Solutions</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#plant-tree">Plant a Tree</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#solutions"><i class="fas fa-seedling"></i> Solutions</a></li>
+                    <li><a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a></li>
+                    <li><a href="#benefits"><i class="fas fa-star"></i> Benefits</a></li>
+                    <li><a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a></li>
+                    <li><a href="#plant-tree"><i class="fas fa-leaf"></i> Plant a Tree</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -1251,9 +1422,9 @@
                         <span class="hero-date">July 20, 2025</span>
                         <span class="hero-category">AgTech Solution</span>
                     </div>
-                    
+
                     <h1 class="hero-title">Introducing Root AI</h1>
-                    
+
                     <div class="hero-actions">
                         <a href="http://127.0.0.1:5000" class="btn-primary">
                             Try Root AI <i class="fas fa-arrow-right"></i>
@@ -1278,7 +1449,8 @@
                 <h2>Our Core Solutions for Your Farm</h2>
                 <div class="solutions-grid">
                     <div class="solution-card glass">
-                        <i class="fa-solid fa-seedling"></i>
+                        <div class="rive-icon" id="rive-plant"></div>
+                        <i class="fa-solid fa-seedling" aria-hidden="true"></i>
                         <h3>Precision Crop Care</h3>
                         <p>Optimize every aspect of your crop's growth cycle.</p>
                         <ul>
@@ -1289,7 +1461,8 @@
                         </ul>
                     </div>
                     <div class="solution-card glass">
-                        <i class="fa-solid fa-cow"></i>
+                        <div class="rive-icon" id="rive-cow"></div>
+                        <i class="fa-solid fa-cow" aria-hidden="true"></i>
                         <h3>Livestock & Aquaculture Insights</h3>
                         <p>Ensure the health and productivity of your animals and fish.</p>
                         <ul>
@@ -1299,7 +1472,8 @@
                         </ul>
                     </div>
                     <div class="solution-card glass">
-                        <i class="fa-solid fa-robot"></i>
+                        <div class="rive-icon" id="rive-robot"></div>
+                        <i class="fa-solid fa-robot" aria-hidden="true"></i>
                         <h3>Farm Automation & Data Integration</h3>
                         <p>Streamline operations and integrate with modern farm tech.</p>
                         <ul>
@@ -1309,7 +1483,8 @@
                         </ul>
                     </div>
                     <div class="solution-card glass">
-                        <i class="fa-solid fa-leaf"></i>
+                        <div class="rive-icon" id="rive-leaf"></div>
+                        <i class="fa-solid fa-leaf" aria-hidden="true"></i>
                         <h3>Sustainable & Resilient Farming</h3>
                         <p>Farm responsibly and adapt to changing climate patterns.</p>
                         <ul>
@@ -1494,6 +1669,7 @@
         <i class="fa-solid fa-comment-dots"></i>
     </a>
 
+    <script src="https://unpkg.com/@rive-app/canvas@2.11.4/rive.js"></script>
     <script>
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -1511,11 +1687,7 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
-            });
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
+                // Close mobile menu on link click
                 document.querySelector('.nav-links').classList.remove('active');
                 document.querySelector('.mobile-menu-btn').classList.remove('active');
             });
@@ -1538,32 +1710,26 @@
             const overlay = document.getElementById('popupOverlay');
             popup.classList.remove('active');
             overlay.classList.remove('active');
-            document.getElementById('treePhoto').value = ''; // Reset file input
+            document.getElementById('treePhoto').value = '';
         }
-    </script>
 
-    <script>
         // Loading Screen Control
         document.addEventListener('DOMContentLoaded', function() {
             const loadingScreen = document.getElementById('loadingScreen');
             
-            // Simulate loading time (you can adjust this or tie it to actual page load events)
             setTimeout(function() {
                 loadingScreen.classList.add('fade-out');
                 
-                // Remove the loading screen from DOM after fade out completes
                 setTimeout(function() {
                     loadingScreen.style.display = 'none';
-                    document.body.style.overflow = 'auto'; // Re-enable scrolling
-                }, 4000); // Match the CSS transition duration (4 seconds fade out)
+                    document.body.style.overflow = 'auto';
+                }, 4000);
                 
-            }, 2000); // Show loading screen for 2 seconds
+            }, 2000);
             
-            // Disable scrolling while loading
             document.body.style.overflow = 'hidden';
         });
 
-        // Optional: Hide loading screen when all resources are fully loaded
         window.addEventListener('load', function() {
             const loadingScreen = document.getElementById('loadingScreen');
             if (loadingScreen && !loadingScreen.classList.contains('fade-out')) {
@@ -1572,8 +1738,43 @@
                     setTimeout(function() {
                         loadingScreen.style.display = 'none';
                         document.body.style.overflow = 'auto';
-                    }, 4000); // 4 second fade out time
-                }, 1000); // Minimum display time of 1 second even if page loads faster
+                    }, 4000);
+                }, 1000);
+            }
+        });
+
+        // Rive Animations for Solution Cards
+        window.addEventListener('DOMContentLoaded', function() {
+            if (window.Rive) {
+                // Plant
+                new Rive({
+                    src: 'https://public.rive.app/community/runtime-files/2127-1467-plant.riv',
+                    canvas: document.getElementById('rive-plant'),
+                    autoplay: true,
+                    stateMachines: 'State Machine 1',
+                    fit: Rive.Fit.Contain
+                });
+                // Cow
+                new Rive({
+                    src: 'https://public.rive.app/community/runtime-files/2127-1468-cow.riv',
+                    canvas: document.getElementById('rive-cow'),
+                    autoplay: true,
+                    fit: Rive.Fit.Contain
+                });
+                // Robot
+                new Rive({
+                    src: 'https://public.rive.app/community/runtime-files/2127-1469-robot.riv',
+                    canvas: document.getElementById('rive-robot'),
+                    autoplay: true,
+                    fit: Rive.Fit.Contain
+                });
+                // Leaf
+                new Rive({
+                    src: 'https://public.rive.app/community/runtime-files/2127-1470-leaf.riv',
+                    canvas: document.getElementById('rive-leaf'),
+                    autoplay: true,
+                    fit: Rive.Fit.Contain
+                });
             }
         });
     </script>
