@@ -823,245 +823,409 @@
             box-shadow: 0 10px 24px rgba(76, 175, 80, 0.6);
         }
 
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero {
-                padding: 80px 24px;
-            }
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 50%, #66bb6a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 4s ease-out, visibility 4s ease-out;
+        }
 
-            .hero h1 {
-                font-size: 36px;
-            }
+        .loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
 
-            .solutions-grid, .benefits-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 24px;
-            }
+        .tree-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: treeGrow 2s ease-in-out infinite;
+        }
 
-            .how-it-works-steps {
-                flex-direction: column;
-                align-items: center;
-                gap: 24px;
-            }
+        .tree-trunk {
+            width: 20px;
+            height: 80px;
+            background: linear-gradient(to bottom, #8d6e63, #5d4037);
+            border-radius: 10px 10px 4px 4px;
+            position: relative;
+            margin-bottom: 10px;
+            animation: trunkGrow 0.8s ease-out;
+        }
 
-            .step-item {
-                flex: 0 1 90%;
-                border-bottom: 2px dashed var(--primary-green);
-                padding-bottom: 28px;
-                margin-bottom: 28px;
-            }
+        .tree-leaves {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-            .step-item:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-            }
+        .leaf-layer {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #66bb6a, #4caf50);
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: -20px;
+            animation: leafGrow 0.6s ease-out;
+        }
 
-            .step-item::after {
-                content: '\f078';
-                font-family: 'Font Awesome 6 Free';
-                font-weight: 900;
-                top: auto;
-                bottom: -18px;
-                left: 50%;
-                transform: translateX(-50%);
-                right: auto;
-            }
+        .leaf-layer:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            animation-delay: 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
 
-            .step-item:last-child::after {
-                content: none;
-            }
+        .leaf-layer:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0.8s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
 
-            .testimonials-slider {
-                gap: 20px;
-                padding: 12px;
-            }
+        .leaf-layer:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            animation-delay: 1.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
 
-            .testimonial-card {
-                flex: 0 0 80%;
+        .growing-text {
+            margin-top: 30px;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 600;
+            text-align: center;
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fff, #e8f5e9);
+            border-radius: 2px;
+            animation: progressFill 2s ease-in-out infinite;
+        }
+
+        .floating-seeds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .seed {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #8bc34a;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: seedFloat 2s linear infinite;
+        }
+
+        .seed:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .seed:nth-child(2) { left: 20%; animation-delay: 0.5s; }
+        .seed:nth-child(3) { left: 30%; animation-delay: 1s; }
+        .seed:nth-child(4) { left: 40%; animation-delay: 1.5s; }
+        .seed:nth-child(5) { left: 50%; animation-delay: 2s; }
+        .seed:nth-child(6) { left: 60%; animation-delay: 2.5s; }
+        .seed:nth-child(7) { left: 70%; animation-delay: 3s; }
+        .seed:nth-child(8) { left: 80%; animation-delay: 3.5s; }
+        .seed:nth-child(9) { left: 90%; animation-delay: 4s; }
+
+        @keyframes treeGrow {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
+
+        @keyframes trunkGrow {
+            0% { 
+                height: 0; 
+                transform: scaleY(0); 
+                transform-origin: bottom; 
+            }
+            100% { 
+                height: 80px; 
+                transform: scaleY(1); 
             }
         }
 
+        @keyframes leafGrow {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg); 
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(0.8) rotate(5deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+            100% { content: ''; }
+        }
+
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes seedFloat {
+            0% { 
+                top: 100%; 
+                opacity: 0; 
+                transform: translateX(0) rotate(0deg); 
+            }
+            10% { 
+                opacity: 0.7; 
+            }
+            90% { 
+                opacity: 0.7; 
+            }
+            100% { 
+                top: -10%; 
+                opacity: 0; 
+                transform: translateX(50px) rotate(360deg); 
+            }
+        }
+
+        /* Hero Main Section - Website Theme */
+        .hero-main {
+            background: linear-gradient(135deg, #f8fffe 0%, #f0f9f0 100%);
+            color: var(--text-color);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        .hero-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .hero-date {
+            font-weight: 500;
+        }
+
+        .hero-category {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--primary-green);
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 8vw, 88px);
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--heading-color) 0%, var(--primary-green) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--pure-white);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 16px 32px;
+            border: 2px solid var(--primary-green);
+            border-radius: 50px;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: var(--pure-white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-secondary:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            nav {
-                padding: 12px;
-                position: relative;
+            .hero-main {
+                padding: 60px 20px;
+                min-height: 70vh;
             }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
+            
+            .hero-header {
                 flex-direction: column;
-                align-items: center;
-                margin-top: 12px;
+                gap: 10px;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
                 gap: 16px;
-                background: var(--white);
-                padding: 24px 0;
-                border-radius: 14px;
-                box-shadow: 0 4px 12px var(--shadow-color);
-                animation: slideDown 0.4s ease-out;
-                z-index: 999;
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-                align-items: center;
+            
+            .btn-primary, .btn-secondary {
+                width: 250px;
                 justify-content: center;
-                width: 40px;
-                height: 40px;
-            }
-
-            .hero {
-                padding: 48px 20px;
-                margin: 20px;
-            }
-
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 15px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .btn, .btn-secondary {
-                padding: 12px 24px;
-                font-size: 15px;
-                max-width: 320px;
-                margin: 0 auto;
-            }
-
-            h2 {
-                font-size: 26px;
-            }
-
-            .cta-section, .plant-tree-section {
-                padding: 48px 20px;
-                margin: 20px;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .solutions-grid, .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 0 12px;
-            }
-
-            .solution-card, .benefit-item {
-                max-width: 100%;
-            }
-
-            .testimonial-card {
-                flex: 0 0 90%;
-                margin: 0 auto;
-                padding: 20px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-                gap: 24px;
-            }
-
-            .footer-column {
-                min-width: 100%;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .chat-button {
-                width: 52px;
-                height: 52px;
-                font-size: 1.6em;
-            }
-
-            .upload-container {
-                padding: 20px;
-                max-width: 90%;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
+            .hero-main {
+                padding: 40px 15px;
             }
-
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero p {
-                font-size: 14px;
-            }
-
-            .btn, .btn-secondary {
-                padding: 10px 20px;
-                font-size: 14px;
-                max-width: 280px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            .solution-card, .benefit-item, .step-item {
-                padding: 20px;
-            }
-
-            .testimonials-slider {
-                gap: 16px;
-                padding: 8px;
-            }
-
-            .testimonial-card {
-                flex: 0 0 95%;
-                padding: 16px;
-            }
-
-            .cta-section p, .plant-tree-section p {
-                font-size: 15px;
-            }
-
-            .footer-column p, .footer-column a, .footer-column li {
-                font-size: 14px;
-            }
-
-            .popup {
-                width: 95%;
-                padding: 24px;
-            }
-
-            .upload-container input[type="file"] {
-                font-size: 14px;
-                max-width: 100%;
-            }
-
-            .upload-container .btn {
-                padding: 10px 28px;
-                font-size: 14px;
+            
+            .hero-content {
+                margin-bottom: 40px;
             }
         }
+
+        /* Existing styles continue here */
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="floating-seeds">
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+            <div class="seed"></div>
+        </div>
+        
+        <div class="tree-container">
+            <div class="tree-leaves">
+                <div class="leaf-layer"></div>
+                <div class="leaf-layer"></div>
+                <div class="leaf-layer"></div>
+            </div>
+            <div class="tree-trunk"></div>
+        </div>
+        
+        <div class="growing-text">
+            Growing your agricultural future<span class="loading-dots"></span>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <nav class="glass">
@@ -1080,13 +1244,24 @@
     </header>
 
     <main>
-        <section class="hero glass">
+        <section class="hero-main">
             <div class="container">
-                <h1>Transforming Indian Agriculture with Smart AI Solutions</h1>
-                <p>Empowering our farmers with cutting-edge, data-driven insights for higher yields, reduced costs, and sustainable prosperity.</p>
-                <div class="hero-buttons">
-                    <a href="http://127.0.0.1:5000" class="btn">Request a Free Demo</a>
-                    <a href="#contact" class="btn btn-secondary">Speak to an Root Expert</a>
+                <div class="hero-content">
+                    <div class="hero-header">
+                        <span class="hero-date">July 20, 2025</span>
+                        <span class="hero-category">AgTech Solution</span>
+                    </div>
+                    
+                    <h1 class="hero-title">Introducing Root AI</h1>
+                    
+                    <div class="hero-actions">
+                        <a href="http://127.0.0.1:5000" class="btn-primary">
+                            Try Root AI <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#plant-tree" class="btn-secondary">
+                            Plant Tree <i class="fas fa-leaf"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1365,6 +1540,42 @@
             overlay.classList.remove('active');
             document.getElementById('treePhoto').value = ''; // Reset file input
         }
+    </script>
+
+    <script>
+        // Loading Screen Control
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // Simulate loading time (you can adjust this or tie it to actual page load events)
+            setTimeout(function() {
+                loadingScreen.classList.add('fade-out');
+                
+                // Remove the loading screen from DOM after fade out completes
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }, 4000); // Match the CSS transition duration (4 seconds fade out)
+                
+            }, 2000); // Show loading screen for 2 seconds
+            
+            // Disable scrolling while loading
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Optional: Hide loading screen when all resources are fully loaded
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen && !loadingScreen.classList.contains('fade-out')) {
+                setTimeout(function() {
+                    loadingScreen.classList.add('fade-out');
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 4000); // 4 second fade out time
+                }, 1000); // Minimum display time of 1 second even if page loads faster
+            }
+        });
     </script>
 </body>
 </html>
