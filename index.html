@@ -1771,8 +1771,10 @@
         <div class="container">
             <nav class="glass">
                 <div class="logo">Root AI</div>
-                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
-                <ul class="nav-links">
+                <button class="mobile-menu-btn" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="main-nav">
                     <li><a href="#solutions">Solutions</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#benefits">Benefits</a></li>
@@ -2037,23 +2039,30 @@
 
     <script>
         // Enhanced mobile menu functionality
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const body = document.body;
-            
+
+        // Hamburger menu logic with Font Awesome icons
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
             menuBtn.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
+            const icon = menuBtn.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 body.style.overflow = 'hidden';
-                menuBtn.innerHTML = '✕';
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                menuBtn.setAttribute('aria-label', 'Close navigation');
+                menuBtn.setAttribute('aria-expanded', 'true');
             } else {
                 body.style.overflow = 'auto';
-                menuBtn.innerHTML = '☰';
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                menuBtn.setAttribute('aria-label', 'Open navigation');
+                menuBtn.setAttribute('aria-expanded', 'false');
             }
-        }
+        });
 
         // Enhanced smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2061,25 +2070,24 @@
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
                 const target = document.querySelector(targetId);
                 if (target) {
                     const headerHeight = document.querySelector('header').offsetHeight;
                     const targetPosition = target.offsetTop - headerHeight - 20;
-                    
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
-                    
                     // Close mobile menu if open
-                    const navLinks = document.querySelector('.nav-links');
-                    const menuBtn = document.querySelector('.mobile-menu-btn');
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         menuBtn.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                        menuBtn.innerHTML = '☰';
+                        body.style.overflow = 'auto';
+                        const icon = menuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                        menuBtn.setAttribute('aria-label', 'Open navigation');
+                        menuBtn.setAttribute('aria-expanded', 'false');
                     }
                 }
             });
@@ -2087,15 +2095,16 @@
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
-            const navLinks = document.querySelector('.nav-links');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
             const nav = document.querySelector('nav');
-            
             if (navLinks.classList.contains('active') && !nav.contains(e.target)) {
                 navLinks.classList.remove('active');
                 menuBtn.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                menuBtn.innerHTML = '☰';
+                body.style.overflow = 'auto';
+                const icon = menuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                menuBtn.setAttribute('aria-label', 'Open navigation');
+                menuBtn.setAttribute('aria-expanded', 'false');
             }
         });
 
