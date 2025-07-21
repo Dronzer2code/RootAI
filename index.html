@@ -166,7 +166,7 @@
             padding: 24px 0;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 3000;
             background-color: var(--white);
             box-shadow: 0 3px 12px var(--shadow-color);
             width: 100%;
@@ -242,7 +242,8 @@
             background: transparent;
             padding: 8px;
             border-radius: 8px;
-            z-index: 1001;
+            z-index: 3002;
+            position: relative;
         }
 
         .mobile-menu-btn:before {
@@ -315,13 +316,11 @@
 
             .nav-links {
                 position: fixed;
-                top: calc(100% + 1px);
+                top: 98px;
                 left: 0;
                 right: 0;
                 width: 100vw;
-                background: var(--glass-bg);
-                backdrop-filter: var(--glass-blur);
-                -webkit-backdrop-filter: var(--glass-blur);
+                background: var(--pure-white);
                 border: 1px solid var(--glass-border);
                 border-top: none;
                 flex-direction: column;
@@ -331,17 +330,23 @@
                 opacity: 0;
                 visibility: hidden;
                 transition: all 0.3s ease;
-                z-index: 1000;
+                z-index: 3001;
                 box-sizing: border-box;
                 max-height: calc(100vh - 100px);
                 overflow-y: auto;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            }
+
+            /* Dark theme mobile menu */
+            [data-theme="dark"] .nav-links {
+                background: var(--pure-white);
+                border-color: rgba(255, 255, 255, 0.2);
             }
 
             .nav-links.active {
                 transform: translateY(0);
                 opacity: 1;
                 visibility: visible;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             }
 
             .nav-links li {
