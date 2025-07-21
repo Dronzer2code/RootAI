@@ -26,12 +26,27 @@
             --pure-white: #ffffff;
             --text-color: #1a2c34;
             --heading-color: #1a2c34;
+            --secondary-text: #5f6f81;
             --light-gray: #e8f5e9;
             --glass-bg: rgba(255, 255, 255, 0.25);
             --glass-border: rgba(255, 255, 255, 0.35);
             --shadow-color: rgba(0, 0, 0, 0.15);
             --glass-blur: blur(12px);
             --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --white: #1a1a1a;
+            --pure-white: #121212;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --secondary-text: #b0b0b0;
+            --light-gray: #2d2d2d;
+            --glass-bg: rgba(30, 30, 30, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         body {
@@ -84,16 +99,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideInMenu {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes fadeInItem {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         /* Glassmorphism */
         .glass {
             background: var(--glass-bg);
@@ -106,9 +111,23 @@
         }
 
         .glass:hover {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 14px 48px rgba(0, 0, 0, 0.2);
+            background: rgba(76, 175, 80, 0.15);
+            box-shadow: 0 14px 48px rgba(76, 175, 80, 0.2);
             transform: translateY(-4px);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        /* Light theme specific hover */
+        :root .glass:hover {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 14px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dark theme specific hover */
+        [data-theme="dark"] .glass:hover {
+            background: rgba(50, 50, 50, 0.6);
+            box-shadow: 0 14px 48px rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.2);
         }
 
         /* Header */
@@ -142,21 +161,11 @@
             display: flex;
             gap: 24px;
             align-items: center;
-            transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
         .nav-links li {
             list-style: none;
-            position: relative;
-            animation: fadeInItem 0.5s ease-out forwards;
         }
-
-        .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-        .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-        .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-        .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-        .nav-links li:nth-child(5) { animation-delay: 0.5s; }
-        .nav-links li:nth-child(6) { animation-delay: 0.6s; }
 
         .nav-links a {
             text-decoration: none;
@@ -165,14 +174,11 @@
             font-size: 16px;
             transition: color 0.4s ease, transform 0.4s ease;
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .nav-links a:hover {
             color: var(--primary-yellow);
-            transform: scale(1.05);
+            transform: translateY(-4px);
         }
 
         .nav-links a::after {
@@ -190,48 +196,99 @@
             width: 100%;
         }
 
-        .nav-links a i {
-            font-size: 14px;
-            color: var(--primary-green);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover i {
-            transform: translateX(4px);
-        }
-
         .mobile-menu-btn {
             display: none;
             font-size: 28px;
             cursor: pointer;
             color: var(--text-color);
             transition: transform 0.4s ease;
-            z-index: 1002;
-            position: relative;
         }
 
-        .mobile-menu-btn i {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .mobile-menu-btn.active i.fa-bars {
-            opacity: 0;
-            transform: rotate(90deg);
-        }
-
-        .mobile-menu-btn.active i.fa-times {
-            opacity: 1;
-            transform: rotate(0deg);
-        }
-
-        .mobile-menu-btn i.fa-times {
-            opacity: 0;
-            position: absolute;
-            transform: rotate(-90deg);
+        .mobile-menu-btn.active::before {
+            content: '\f00d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
         }
 
         .mobile-menu-btn:hover {
-            transform: scale(1.1);
+            transform: rotate(90deg);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 16px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: var(--primary-green);
+        }
+
+        .theme-toggle i {
+            font-size: 16px;
+            color: var(--primary-yellow);
+        }
+
+        /* Mobile responsiveness for theme toggle */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                padding: 6px 12px;
+                font-size: 12px;
+                margin-left: 8px;
+            }
+            
+            .theme-toggle i {
+                font-size: 14px;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('assets/hero.jpg') no-repeat center center/cover;
+            text-align: center;
+            padding: 100px 24px;
+            border-radius: 20px;
+            margin: 24px 0;
+            animation: fadeIn 0.9s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            color: var(--heading-color);
+            margin-bottom: 24px;
+            font-weight: 700;
+            animation: slideInLeft 0.7s ease-out;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 18px);
+            color: var(--text-color);
+            margin-bottom: 32px;
+            max-width: 740px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
         /* Button Styling */
@@ -307,27 +364,44 @@
             margin: 0 auto 40px auto;
             font-size: 16px;
             text-align: center;
-            color: #5f6f81;
+            color: var(--secondary-text);
             line-height: 1.6;
         }
 
         /* Solutions Section */
-        .solutions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            justify-items: center;
+        .solutions-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 16px;
         }
 
+        .solutions-slideshow {
+            overflow: hidden;
+            border-radius: 20px;
+            position: relative;
+            background: transparent;
+        }
+
+        .solutions-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 400%;
+            height: auto;
+        }
+
         .solution-card {
-            padding: 28px;
+            flex: 0 0 25%;
+            padding: 40px;
             border-radius: 18px;
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             animation: fadeIn 0.7s ease-out;
-            max-width: 340px;
-            width: 100%;
+            box-sizing: border-box;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .solution-card:hover {
@@ -336,36 +410,40 @@
         }
 
         .solution-card i {
-            font-size: 2.6em;
+            font-size: 3.5em;
             color: var(--primary-green);
-            margin-bottom: 18px;
+            margin-bottom: 24px;
         }
 
         .solution-card h3 {
-            font-size: 1.5em;
+            font-size: 2em;
             color: var(--heading-color);
-            margin-bottom: 14px;
+            margin-bottom: 20px;
             font-weight: 600;
         }
 
         .solution-card p {
-            font-size: 1em;
-            color: #5f6f81;
-            margin-bottom: 18px;
+            font-size: 1.2em;
+            color: var(--secondary-text);
+            margin-bottom: 24px;
         }
 
         .solution-card ul {
             list-style: none;
             text-align: left;
-            margin-top: 14px;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .solution-card ul li {
-            margin-bottom: 12px;
-            padding-left: 28px;
+            margin-bottom: 16px;
+            padding-left: 32px;
             position: relative;
-            font-size: 0.95em;
+            font-size: 1.1em;
             color: var(--text-color);
+            line-height: 1.6;
         }
 
         .solution-card ul li::before {
@@ -375,7 +453,147 @@
             color: var(--primary-yellow);
             position: absolute;
             left: 0;
-            top: 4px;
+            top: 6px;
+            font-size: 1.2em;
+        }
+
+        /* Navigation arrows */
+        .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-green);
+            color: #fff;
+            border: 3px solid #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4), 0 0 0 4px rgba(255,255,255,0.7);
+            z-index: 100;
+            opacity: 0.98;
+        }
+
+        .slide-nav:hover {
+            background: var(--dark-green);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .slide-nav.prev {
+            left: 12px;
+        }
+
+        .slide-nav.next {
+            right: 12px;
+        }
+
+        /* Slide indicators */
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary-green);
+            transform: scale(1.3);
+        }
+
+        .indicator:hover {
+            background: var(--primary-yellow);
+        }
+
+        /* Auto-play pause on hover */
+        .solutions-slideshow:hover .solutions-slider {
+            animation-play-state: paused;
+        }
+
+        /* Mobile responsiveness for slideshow */
+        @media (max-width: 768px) {
+            .solutions-container {
+                padding: 0 8px;
+            }
+
+            .solution-card {
+                padding: 30px 20px;
+                min-height: 450px;
+            }
+
+            .solution-card h3 {
+                font-size: 1.6em;
+            }
+
+            .solution-card p {
+                font-size: 1em;
+            }
+
+            .solution-card ul li {
+                font-size: 0.95em;
+                margin-bottom: 12px;
+            }
+
+            .slide-nav {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1em;
+            }
+
+            .slide-nav.prev {
+                left: 4px;
+            }
+
+            .slide-nav.next {
+                right: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .solution-card {
+                padding: 25px 15px;
+                min-height: 400px;
+            }
+
+            .solution-card i {
+                font-size: 2.8em;
+            }
+
+            .solution-card h3 {
+                font-size: 1.4em;
+            }
+
+            .solution-card p {
+                font-size: 0.9em;
+            }
+
+            .slide-nav {
+                width: 32px;
+                height: 32px;
+                font-size: 1em;
+            }
+
+            .slide-nav.prev {
+                left: 2px;
+            }
+
+            .slide-nav.next {
+                right: 2px;
+            }
         }
 
         /* How It Works */
@@ -411,7 +629,7 @@
 
         .step-item p {
             font-size: 0.95em;
-            color: #5f6f81;
+            color: var(--secondary-text);
         }
 
         .step-item::after {
@@ -462,7 +680,7 @@
 
         .benefit-item p {
             font-size: 0.95em;
-            color: #5f6f81;
+            color: var(--secondary-text);
         }
 
         /* Testimonials */
@@ -473,12 +691,12 @@
             gap: 28px;
             padding: 16px;
             justify-content: flex-start;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
         }
 
         .testimonials-slider::-webkit-scrollbar {
-            display: none;
+            display: none; /* Chrome, Safari */
         }
 
         .testimonial-card {
@@ -507,7 +725,7 @@
             font-style: italic;
             margin-bottom: 18px;
             font-size: 1em;
-            color: #5f6f81;
+            color: var(--secondary-text);
         }
 
         .testimonial-card span {
@@ -690,6 +908,112 @@
             display: block;
         }
 
+        /* AI in AgTech Section */
+        .ai-agtech-section {
+            background-color: var(--white);
+            padding: 72px 0;
+        }
+
+        .ai-content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ai-text-content h2 {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .ai-text-content h2::after {
+            left: 0;
+            transform: none;
+        }
+
+        .ai-text-content p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .ai-highlights {
+            list-style: none;
+            margin: 32px 0;
+        }
+
+        .ai-highlights li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 16px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .ai-highlights li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-green);
+            position: absolute;
+            left: 0;
+            top: 16px;
+            font-size: 1.1em;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .video-caption {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--secondary-text);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .ai-content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .ai-text-content h2 {
+                text-align: center;
+            }
+
+            .ai-text-content h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .ai-text-content p {
+                text-align: center;
+            }
+        }
+
         /* CTA Section */
         .cta-section {
             background: linear-gradient(45deg, var(--primary-green), var(--primary-yellow));
@@ -842,8 +1166,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #4caf50 0%, #8bc34a 50%, #66bb6a 100%);
             display: flex;
             flex-direction: column;
@@ -852,9 +1176,7 @@
             z-index: 9999;
             opacity: 1;
             visibility: visible;
-            transition: opacity 4s ease-out, visibility 4s ease-out;
-            padding: 0;
-            margin: 0;
+            transition: opacity 3s ease-out, visibility 3s ease-out;
         }
 
         .loading-screen.fade-out {
@@ -1069,6 +1391,11 @@
             position: relative;
         }
 
+        /* Dark theme hero background */
+        [data-theme="dark"] .hero-main {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
         .hero-content {
             text-align: center;
             max-width: 800px;
@@ -1082,7 +1409,7 @@
             gap: 20px;
             margin-bottom: 40px;
             font-size: 14px;
-            color: #6b7280;
+            color: var(--secondary-text);
         }
 
         .hero-date {
@@ -1106,8 +1433,8 @@
             line-height: 1.1;
             letter-spacing: -2px;
             background: linear-gradient(135deg, var(--heading-color) 0%, var(--primary-green) 100%);
-            -webkit-background-clip: text;
             background-clip: text;
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 50px;
         }
@@ -1174,193 +1501,39 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .container {
-                padding: 0 20px;
-            }
-
-            .how-it-works-steps {
-                flex-direction: column;
-                align-items: center;
-                gap: 40px;
-            }
-
-            .step-item {
-                flex: 0 1 100%;
-                max-width: 450px;
-            }
-
-            .step-item::after {
-                content: '\f078'; /* down arrow */
-                right: 50%;
-                top: 100%;
-                transform: translateX(50%) translateY(10px);
-            }
-
-            .step-item:last-child::after {
-                content: none;
-            }
-
-            .testimonials-slider {
-                justify-content: flex-start;
-            }
-
-            .testimonial-card {
-                flex: 0 0 320px;
-            }
-        }
-
         @media (max-width: 768px) {
-            body {
-                line-height: 1.7;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            h2 {
-                font-size: clamp(24px, 6vw, 28px);
-                margin-bottom: 30px;
-            }
-
-            .container {
-                padding: 0 16px;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: 250px;
-                background: var(--white);
-                flex-direction: column;
-                justify-content: center;
-                padding: 40px 20px;
-                transform: translateX(100%);
-                opacity: 0;
-                z-index: 1001;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-            }
-
-            .nav-links.active {
-                transform: translateX(0);
-                opacity: 1;
-                animation: slideInMenu 0.5s ease-out;
-            }
-
-            .nav-links li {
-                margin: 15px 0;
-            }
-
-            .nav-links a {
-                font-size: 18px;
-                padding: 10px;
-                justify-content: flex-start;
-            }
-
             .hero-main {
-                padding: 60px 16px;
-                min-height: 0;
+                padding: 60px 20px;
+                min-height: 70vh;
             }
-
+            
             .hero-header {
                 flex-direction: column;
                 gap: 10px;
             }
-
+            
             .hero-actions {
                 flex-direction: column;
-                gap: 20px;
+                gap: 16px;
             }
-
+            
             .btn-primary, .btn-secondary {
-                width: 100%;
-                max-width: 300px;
+                width: 250px;
                 justify-content: center;
-            }
-
-            .solutions-grid, .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .testimonial-card {
-                flex: 0 0 90%;
-                max-width: 340px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            section {
-                padding: 48px 0;
-            }
-
-            .container {
-                padding: 0 12px;
-            }
-
-            .nav-links {
-                width: 100%;
-                padding: 20px;
-            }
-
-            .nav-links a {
-                font-size: 16px;
-            }
-
             .hero-main {
-                padding: 48px 12px;
+                padding: 40px 15px;
             }
-
+            
             .hero-content {
-                margin-bottom: 32px;
-            }
-
-            .hero-title {
-                font-size: clamp(40px, 10vw, 52px);
-                letter-spacing: -1px;
-            }
-
-            .btn-primary, .btn-secondary {
-                padding: 14px 24px;
-                font-size: 15px;
-            }
-
-            .upload-container {
-                padding: 16px;
-            }
-
-            .upload-container .btn {
-                width: 100%;
-            }
-
-            .popup {
-                padding: 20px;
-            }
-
-            .chat-button {
-                width: 50px;
-                height: 50px;
-                font-size: 1.6em;
-                bottom: 16px;
-                right: 16px;
+                margin-bottom: 40px;
             }
         }
+
+        /* Existing styles continue here */
     </style>
 </head>
 <body>
@@ -1377,7 +1550,7 @@
             <div class="seed"></div>
             <div class="seed"></div>
         </div>
-
+        
         <div class="tree-container">
             <div class="tree-leaves">
                 <div class="leaf-layer"></div>
@@ -1386,11 +1559,11 @@
             </div>
             <div class="tree-trunk"></div>
         </div>
-
+        
         <div class="growing-text">
             Growing your agricultural future<span class="loading-dots"></span>
         </div>
-
+        
         <div class="progress-bar">
             <div class="progress-fill"></div>
         </div>
@@ -1400,17 +1573,20 @@
         <div class="container">
             <nav class="glass">
                 <div class="logo">Root AI</div>
-                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                    <i class="fas fa-bars"></i>
-                    <i class="fas fa-times"></i>
-                </div>
+                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
                 <ul class="nav-links">
-                    <li><a href="#solutions"><i class="fas fa-seedling"></i> Solutions</a></li>
-                    <li><a href="#how-it-works"><i class="fas fa-cogs"></i> How It Works</a></li>
-                    <li><a href="#benefits"><i class="fas fa-star"></i> Benefits</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a></li>
-                    <li><a href="#plant-tree"><i class="fas fa-leaf"></i> Plant a Tree</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#plant-tree">Plant a Tree</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                            <span id="themeText">Dark</span>
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -1424,9 +1600,9 @@
                         <span class="hero-date">July 20, 2025</span>
                         <span class="hero-category">AgTech Solution</span>
                     </div>
-
+                    
                     <h1 class="hero-title">Introducing Root AI</h1>
-
+                    
                     <div class="hero-actions">
                         <a href="http://127.0.0.1:5000" class="btn-primary">
                             Try Root AI <i class="fas fa-arrow-right"></i>
@@ -1449,52 +1625,74 @@
         <section id="solutions">
             <div class="container">
                 <h2>Our Core Solutions for Your Farm</h2>
-                <div class="solutions-grid">
-                    <div class="solution-card glass">
-                        <div class="rive-icon" id="rive-plant"></div>
-                        <i class="fa-solid fa-seedling" aria-hidden="true"></i>
-                        <h3>Precision Crop Care</h3>
-                        <p>Optimize every aspect of your crop's growth cycle.</p>
-                        <ul>
-                            <li>Intelligent Disease & Pest Alerts</li>
-                            <li>Optimized Irrigation Scheduling</li>
-                            <li>Nutrient Deficiency Analysis</li>
-                            <li>Yield Prediction & Optimization</li>
-                        </ul>
+                <div class="solutions-container">
+                    <div class="solutions-slideshow">
+                        <div class="solutions-slider" id="solutionsSlider">
+                            <div class="solution-card glass">
+                                <i class="fa-solid fa-seedling"></i>
+                                <h3>Precision Crop Care</h3>
+                                <p>Optimize every aspect of your crop's growth cycle with intelligent monitoring and recommendations.</p>
+                                <ul>
+                                    <li>Intelligent Disease & Pest Alerts</li>
+                                    <li>Optimized Irrigation Scheduling</li>
+                                    <li>Nutrient Deficiency Analysis</li>
+                                    <li>Yield Prediction & Optimization</li>
+                                    <li>Growth Stage Monitoring</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card glass">
+                                <i class="fa-solid fa-cow"></i>
+                                <h3>Livestock & Aquaculture Insights</h3>
+                                <p>Ensure the health and productivity of your animals and fish with advanced tracking systems.</p>
+                                <ul>
+                                    <li>Individual Animal Health Tracking</li>
+                                    <li>Automated Feeding Recommendations</li>
+                                    <li>Behavioral Anomaly Detection</li>
+                                    <li>Breeding Cycle Management</li>
+                                    <li>Milk Production Optimization</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card glass">
+                                <i class="fa-solid fa-robot"></i>
+                                <h3>Farm Automation & Data Integration</h3>
+                                <p>Streamline operations and integrate with modern farm technology for maximum efficiency.</p>
+                                <ul>
+                                    <li>Drone & Sensor Integration</li>
+                                    <li>Smart Equipment Compatibility</li>
+                                    <li>Automated Environmental Control</li>
+                                    <li>Real-time Data Analytics</li>
+                                    <li>IoT Device Management</li>
+                                </ul>
+                            </div>
+                            <div class="solution-card glass">
+                                <i class="fa-solid fa-leaf"></i>
+                                <h3>Sustainable & Resilient Farming</h3>
+                                <p>Farm responsibly and adapt to changing climate patterns while protecting the environment.</p>
+                                <ul>
+                                    <li>Reduced Water & Input Usage</li>
+                                    <li>Climate Resilience Strategies</li>
+                                    <li>Soil Health Improvement</li>
+                                    <li>Minimized Environmental Impact</li>
+                                    <li>Carbon Footprint Tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation arrows -->
+                        <button class="slide-nav prev" onclick="changeSlide(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="slide-nav next" onclick="changeSlide(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                    <div class="solution-card glass">
-                        <div class="rive-icon" id="rive-cow"></div>
-                        <i class="fa-solid fa-cow" aria-hidden="true"></i>
-                        <h3>Livestock & Aquaculture Insights</h3>
-                        <p>Ensure the health and productivity of your animals and fish.</p>
-                        <ul>
-                            <li>Individual Animal Health Tracking</li>
-                            <li>Automated Feeding Recommendations</li>
-                            <li>Behavioral Anomaly Detection</li>
-                        </ul>
-                    </div>
-                    <div class="solution-card glass">
-                        <div class="rive-icon" id="rive-robot"></div>
-                        <i class="fa-solid fa-robot" aria-hidden="true"></i>
-                        <h3>Farm Automation & Data Integration</h3>
-                        <p>Streamline operations and integrate with modern farm tech.</p>
-                        <ul>
-                            <li>Drone & Sensor Integration</li>
-                            <li>Smart Equipment Compatibility</li>
-                            <li>Automated Environmental Control</li>
-                        </ul>
-                    </div>
-                    <div class="solution-card glass">
-                        <div class="rive-icon" id="rive-leaf"></div>
-                        <i class="fa-solid fa-leaf" aria-hidden="true"></i>
-                        <h3>Sustainable & Resilient Farming</h3>
-                        <p>Farm responsibly and adapt to changing climate patterns.</p>
-                        <ul>
-                            <li>Reduced Water & Input Usage</li>
-                            <li>Climate Resilience Strategies</li>
-                            <li>Soil Health Improvement</li>
-                            <li>Minimized Environmental Impact</li>
-                        </ul>
+                    
+                    <!-- Slide indicators -->
+                    <div class="slide-indicators">
+                        <div class="indicator active" onclick="currentSlide(1)"></div>
+                        <div class="indicator" onclick="currentSlide(2)"></div>
+                        <div class="indicator" onclick="currentSlide(3)"></div>
+                        <div class="indicator" onclick="currentSlide(4)"></div>
                     </div>
                 </div>
             </div>
@@ -1601,6 +1799,40 @@
             </div>
         </section>
 
+        <section id="ai-agtech" class="ai-agtech-section">
+            <div class="container">
+                <div class="ai-content-wrapper">
+                    <div class="ai-text-content">
+                        <h2>AI in AgTech: The Future is Here</h2>
+                        <p>Discover how artificial intelligence is revolutionizing agriculture worldwide. From precision farming to predictive analytics, AI technology is transforming how we grow food and manage resources.</p>
+                        
+                        <ul class="ai-highlights">
+                            <li>Smart crop monitoring with computer vision</li>
+                            <li>Predictive weather and yield analytics</li>
+                            <li>Automated pest and disease detection</li>
+                            <li>Precision irrigation and nutrient management</li>
+                            <li>Supply chain optimization</li>
+                            <li>Sustainable farming practices</li>
+                        </ul>
+                        
+                        <p>Watch this comprehensive overview of how AI is shaping the future of agriculture and learn why Root AI is at the forefront of this technological revolution.</p>
+                    </div>
+                    
+                    <div class="video-section">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/Vpchh74tU3U?autoplay=0&mute=1" 
+                                title="AI in Agriculture - The Future of Farming"
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <p class="video-caption">AI in Agriculture: Transforming Farming for a Sustainable Future</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="cta" class="cta-section">
             <div class="container">
                 <h2>Get Started with Root AI Today!</h2>
@@ -1671,7 +1903,6 @@
         <i class="fa-solid fa-comment-dots"></i>
     </a>
 
-    <script src="https://unpkg.com/@rive-app/canvas@2.11.4/rive.js"></script>
     <script>
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -1679,6 +1910,38 @@
             navLinks.classList.toggle('active');
             menuBtn.classList.toggle('active');
         }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light';
+            }
+        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1689,7 +1952,11 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
-                // Close mobile menu on link click
+            });
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
                 document.querySelector('.nav-links').classList.remove('active');
                 document.querySelector('.mobile-menu-btn').classList.remove('active');
             });
@@ -1712,26 +1979,111 @@
             const overlay = document.getElementById('popupOverlay');
             popup.classList.remove('active');
             overlay.classList.remove('active');
-            document.getElementById('treePhoto').value = '';
+            document.getElementById('treePhoto').value = ''; // Reset file input
         }
 
+        // Solutions Slideshow Functionality
+        let slideIndex = 1;
+        let slideInterval;
+
+        function changeSlide(n) {
+            showSlide(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+
+        function showSlide(n) {
+            const slider = document.getElementById('solutionsSlider');
+            const indicators = document.querySelectorAll('.indicator');
+            const totalSlides = 4;
+            
+            if (n > totalSlides) { slideIndex = 1 }
+            if (n < 1) { slideIndex = totalSlides }
+            
+            // Calculate transform position - move by 25% for each slide
+            const translateX = -(slideIndex - 1) * 25;
+            slider.style.transform = `translateX(${translateX}%)`;
+            
+            // Update indicators
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            indicators[slideIndex - 1].classList.add('active');
+        }
+
+        function autoSlide() {
+            slideIndex++;
+            if (slideIndex > 4) slideIndex = 1;
+            showSlide(slideIndex);
+        }
+
+        // Initialize slideshow
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(slideIndex);
+            
+            // Auto-play slideshow every 5 seconds
+            slideInterval = setInterval(autoSlide, 5000);
+            
+            // Pause auto-play on hover
+            const slideshow = document.querySelector('.solutions-slideshow');
+            slideshow.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            slideshow.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(autoSlide, 5000);
+            });
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.querySelector('.solutions-slideshow').addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.querySelector('.solutions-slideshow').addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    changeSlide(1); // Swipe left - next slide
+                } else {
+                    changeSlide(-1); // Swipe right - previous slide
+                }
+            }
+        }
+    </script>
+
+    <script>
         // Loading Screen Control
         document.addEventListener('DOMContentLoaded', function() {
             const loadingScreen = document.getElementById('loadingScreen');
             
+            // Simulate loading time (you can adjust this or tie it to actual page load events)
             setTimeout(function() {
                 loadingScreen.classList.add('fade-out');
                 
+                // Remove the loading screen from DOM after fade out completes
                 setTimeout(function() {
                     loadingScreen.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 4000);
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }, 3000); // Match the CSS transition duration (3 seconds fade out)
                 
-            }, 2000);
+            }, 3000); // Show loading screen for 3 seconds
             
+            // Disable scrolling while loading
             document.body.style.overflow = 'hidden';
         });
 
+        // Optional: Hide loading screen when all resources are fully loaded
         window.addEventListener('load', function() {
             const loadingScreen = document.getElementById('loadingScreen');
             if (loadingScreen && !loadingScreen.classList.contains('fade-out')) {
@@ -1740,43 +2092,8 @@
                     setTimeout(function() {
                         loadingScreen.style.display = 'none';
                         document.body.style.overflow = 'auto';
-                    }, 4000);
-                }, 1000);
-            }
-        });
-
-        // Rive Animations for Solution Cards
-        window.addEventListener('DOMContentLoaded', function() {
-            if (window.Rive) {
-                // Plant
-                new Rive({
-                    src: 'https://public.rive.app/community/runtime-files/2127-1467-plant.riv',
-                    canvas: document.getElementById('rive-plant'),
-                    autoplay: true,
-                    stateMachines: 'State Machine 1',
-                    fit: Rive.Fit.Contain
-                });
-                // Cow
-                new Rive({
-                    src: 'https://public.rive.app/community/runtime-files/2127-1468-cow.riv',
-                    canvas: document.getElementById('rive-cow'),
-                    autoplay: true,
-                    fit: Rive.Fit.Contain
-                });
-                // Robot
-                new Rive({
-                    src: 'https://public.rive.app/community/runtime-files/2127-1469-robot.riv',
-                    canvas: document.getElementById('rive-robot'),
-                    autoplay: true,
-                    fit: Rive.Fit.Contain
-                });
-                // Leaf
-                new Rive({
-                    src: 'https://public.rive.app/community/runtime-files/2127-1470-leaf.riv',
-                    canvas: document.getElementById('rive-leaf'),
-                    autoplay: true,
-                    fit: Rive.Fit.Contain
-                });
+                    }, 3000); // 3 second fade out time
+                }, 1000); // Minimum display time of 1 second even if page loads faster
             }
         });
     </script>
